@@ -1,0 +1,381 @@
+HG,AG,HomeTeam,AwayTeam
+0,3,Fulham,Arsenal
+1,0,Crystal Palace,Southampton
+4,3,Liverpool,Leeds
+0,2,West Ham,Newcastle
+0,3,West Brom,Leicester
+0,1,Tottenham,Everton
+1,3,Brighton,Chelsea
+0,2,Sheffield United,Wolves
+5,2,Everton,West Brom
+4,3,Leeds,Fulham
+1,3,Man United,Crystal Palace
+2,1,Arsenal,West Ham
+2,5,Southampton,Tottenham
+0,3,Newcastle,Brighton
+0,2,Chelsea,Liverpool
+4,2,Leicester,Burnley
+1,0,Aston Villa,Sheffield United
+1,3,Wolves,Man City
+2,3,Brighton,Man United
+1,2,Crystal Palace,Everton
+3,3,West Brom,Chelsea
+0,1,Burnley,Southampton
+0,1,Sheffield United,Leeds
+1,1,Tottenham,Newcastle
+2,5,Man City,Leicester
+4,0,West Ham,Wolves
+0,3,Fulham,Aston Villa
+3,1,Liverpool,Arsenal
+4,0,Chelsea,Crystal Palace
+4,2,Everton,Brighton
+1,1,Leeds,Man City
+3,1,Newcastle,Burnley
+0,3,Leicester,West Ham
+2,0,Southampton,West Brom
+2,1,Arsenal,Sheffield United
+1,0,Wolves,Fulham
+1,6,Man United,Tottenham
+7,2,Aston Villa,Liverpool
+2,2,Everton,Liverpool
+3,3,Chelsea,Southampton
+1,0,Man City,Arsenal
+1,4,Newcastle,Man United
+1,1,Sheffield United,Fulham
+1,1,Crystal Palace,Brighton
+3,3,Tottenham,West Ham
+0,1,Leicester,Aston Villa
+0,0,West Brom,Burnley
+0,1,Leeds,Wolves
+0,3,Aston Villa,Leeds
+1,1,West Ham,Man City
+1,2,Fulham,Crystal Palace
+0,0,Man United,Chelsea
+2,1,Liverpool,Sheffield United
+2,0,Southampton,Everton
+1,1,Wolves,Newcastle
+0,1,Arsenal,Leicester
+1,1,Brighton,West Brom
+0,1,Burnley,Tottenham
+2,0,Wolves,Crystal Palace
+0,1,Sheffield United,Man City
+0,3,Burnley,Chelsea
+2,1,Liverpool,West Ham
+3,4,Aston Villa,Southampton
+2,1,Newcastle,Everton
+0,1,Man United,Arsenal
+2,1,Tottenham,Brighton
+2,0,Fulham,West Brom
+1,4,Leeds,Leicester
+0,0,Brighton,Burnley
+2,0,Southampton,Newcastle
+1,3,Everton,Man United
+4,1,Crystal Palace,Leeds
+4,1,Chelsea,Sheffield United
+1,0,West Ham,Fulham
+0,1,West Brom,Tottenham
+1,0,Leicester,Wolves
+1,1,Man City,Liverpool
+0,3,Arsenal,Aston Villa
+0,2,Newcastle,Chelsea
+1,2,Aston Villa,Brighton
+2,0,Tottenham,Man City
+1,0,Man United,West Brom
+2,3,Fulham,Everton
+0,1,Sheffield United,West Ham
+0,0,Leeds,Arsenal
+3,0,Liverpool,Leicester
+1,0,Burnley,Crystal Palace
+1,1,Wolves,Southampton
+0,2,Crystal Palace,Newcastle
+1,1,Brighton,Liverpool
+5,0,Man City,Burnley
+0,1,Everton,Leeds
+1,0,West Brom,Sheffield United
+2,3,Southampton,Man United
+0,0,Chelsea,Tottenham
+1,2,Arsenal,Wolves
+1,2,Leicester,Fulham
+2,1,West Ham,Aston Villa
+1,1,Burnley,Everton
+2,0,Man City,Fulham
+1,3,West Ham,Man United
+3,1,Chelsea,Leeds
+1,5,West Brom,Crystal Palace
+1,2,Sheffield United,Leicester
+2,0,Tottenham,Arsenal
+4,0,Liverpool,Wolves
+1,2,Brighton,Southampton
+1,2,Leeds,West Ham
+0,1,Wolves,Aston Villa
+2,1,Newcastle,West Brom
+0,0,Man United,Man City
+1,0,Everton,Chelsea
+3,0,Southampton,Sheffield United
+1,1,Crystal Palace,Tottenham
+1,1,Fulham,Liverpool
+0,1,Arsenal,Burnley
+3,0,Leicester,Brighton
+2,1,Wolves,Chelsea
+1,1,Man City,West Brom
+1,1,Arsenal,Southampton
+5,2,Leeds,Newcastle
+0,2,Leicester,Everton
+0,0,Fulham,Brighton
+2,1,Liverpool,Tottenham
+1,1,West Ham,Crystal Palace
+0,0,Aston Villa,Burnley
+2,3,Sheffield United,Man United
+0,7,Crystal Palace,Liverpool
+0,1,Southampton,Man City
+2,1,Everton,Arsenal
+1,1,Newcastle,Fulham
+1,1,Brighton,Sheffield United
+0,2,Tottenham,Leicester
+6,2,Man United,Leeds
+0,3,West Brom,Aston Villa
+2,1,Burnley,Wolves
+3,0,Chelsea,West Ham
+2,2,Leicester,Man United
+3,0,Aston Villa,Crystal Palace
+0,0,Fulham,Southampton
+3,1,Arsenal,Chelsea
+2,0,Man City,Newcastle
+0,1,Sheffield United,Everton
+1,0,Leeds,Burnley
+2,2,West Ham,Brighton
+1,1,Liverpool,West Brom
+1,1,Wolves,Tottenham
+1,1,Crystal Palace,Leicester
+1,1,Chelsea,Aston Villa
+0,1,Brighton,Arsenal
+1,0,Burnley,Sheffield United
+0,0,Southampton,West Ham
+0,5,West Brom,Leeds
+1,0,Man United,Wolves
+0,0,Newcastle,Liverpool
+0,1,Everton,West Ham
+2,1,Man United,Aston Villa
+3,0,Tottenham,Leeds
+2,0,Crystal Palace,Sheffield United
+3,3,Brighton,Wolves
+0,4,West Brom,Arsenal
+1,2,Newcastle,Leicester
+1,3,Chelsea,Man City
+1,0,Southampton,Liverpool
+1,0,Sheffield United,Newcastle
+0,1,Burnley,Man United
+1,2,Wolves,Everton
+1,0,Man City,Brighton
+1,1,Tottenham,Fulham
+0,0,Arsenal,Crystal Palace
+2,3,Wolves,West Brom
+0,1,Leeds,Brighton
+1,0,West Ham,Burnley
+0,1,Fulham,Chelsea
+2,0,Leicester,Southampton
+1,3,Sheffield United,Tottenham
+0,0,Liverpool,Man United
+4,0,Man City,Crystal Palace
+3,0,Arsenal,Newcastle
+2,1,West Ham,West Brom
+2,0,Leicester,Chelsea
+2,0,Man City,Aston Villa
+1,2,Fulham,Man United
+0,1,Liverpool,Burnley
+2,0,Aston Villa,Newcastle
+2,3,Crystal Palace,West Ham
+1,2,Newcastle,Leeds
+1,3,Southampton,Arsenal
+0,5,West Brom,Man City
+3,2,Burnley,Aston Villa
+0,0,Chelsea,Wolves
+0,0,Brighton,Fulham
+1,1,Everton,Leicester
+1,2,Man United,Sheffield United
+1,3,Tottenham,Liverpool
+0,2,Everton,Newcastle
+1,0,Crystal Palace,Wolves
+1,0,Man City,Sheffield United
+2,2,West Brom,Fulham
+0,0,Arsenal,Man United
+0,1,Southampton,Aston Villa
+2,0,Chelsea,Burnley
+1,3,Leicester,Leeds
+1,3,West Ham,Liverpool
+1,0,Brighton,Tottenham
+2,1,Sheffield United,West Brom
+2,1,Wolves,Arsenal
+9,0,Man United,Southampton
+1,2,Newcastle,Crystal Palace
+0,2,Burnley,Man City
+0,2,Fulham,Leicester
+1,2,Leeds,Everton
+1,3,Aston Villa,West Ham
+0,1,Liverpool,Brighton
+0,1,Tottenham,Chelsea
+1,0,Aston Villa,Arsenal
+1,1,Burnley,Brighton
+3,2,Newcastle,Southampton
+0,0,Fulham,West Ham
+3,3,Man United,Everton
+2,0,Tottenham,West Brom
+0,0,Wolves,Leicester
+1,4,Liverpool,Man City
+1,2,Sheffield United,Chelsea
+2,0,Leeds,Crystal Palace
+3,1,Leicester,Liverpool
+0,3,Crystal Palace,Burnley
+3,0,Man City,Tottenham
+0,0,Brighton,Aston Villa
+1,2,Southampton,Wolves
+1,1,West Brom,Man United
+4,2,Arsenal,Leeds
+0,2,Everton,Fulham
+3,0,West Ham,Sheffield United
+2,0,Chelsea,Newcastle
+1,1,Burnley,Fulham
+1,3,Everton,Man City
+1,0,Wolves,Leeds
+1,1,Southampton,Chelsea
+0,0,Burnley,West Brom
+0,2,Liverpool,Everton
+1,0,Fulham,Sheffield United
+2,1,West Ham,Tottenham
+1,2,Aston Villa,Leicester
+0,1,Arsenal,Man City
+3,1,Man United,Newcastle
+1,2,Brighton,Crystal Palace
+3,0,Leeds,Southampton
+2,1,Man City,West Ham
+1,0,West Brom,Brighton
+0,1,Leeds,Aston Villa
+1,1,Newcastle,Wolves
+0,0,Crystal Palace,Fulham
+1,3,Leicester,Arsenal
+4,0,Tottenham,Burnley
+0,0,Chelsea,Man United
+0,2,Sheffield United,Liverpool
+1,0,Everton,Southampton
+4,1,Man City,Wolves
+1,1,Burnley,Leicester
+1,0,Sheffield United,Aston Villa
+0,0,Crystal Palace,Man United
+0,1,Fulham,Tottenham
+0,1,West Brom,Everton
+0,1,Liverpool,Chelsea
+1,1,Burnley,Arsenal
+0,2,Sheffield United,Southampton
+0,0,Aston Villa,Wolves
+1,2,Brighton,Leicester
+0,0,West Brom,Newcastle
+0,1,Liverpool,Fulham
+0,2,Man City,Man United
+4,1,Tottenham,Crystal Palace
+2,0,Chelsea,Everton
+2,0,West Ham,Leeds
+5,2,Man City,Southampton
+1,1,Newcastle,Aston Villa
+0,0,Leeds,Chelsea
+1,0,Crystal Palace,West Brom
+1,2,Everton,Burnley
+0,3,Fulham,Man City
+1,2,Southampton,Brighton
+5,0,Leicester,Sheffield United
+2,1,Arsenal,Tottenham
+1,0,Man United,West Ham
+0,1,Wolves,Liverpool
+1,2,Fulham,Leeds
+3,0,Brighton,Newcastle
+3,3,West Ham,Arsenal
+0,2,Aston Villa,Tottenham
+2,5,Chelsea,West Brom
+2,1,Leeds,Sheffield United
+0,2,Leicester,Man City
+0,3,Arsenal,Liverpool
+3,2,Southampton,Burnley
+2,2,Newcastle,Tottenham
+3,1,Aston Villa,Fulham
+2,1,Man United,Brighton
+1,1,Everton,Crystal Palace
+2,3,Wolves,West Ham
+0,1,Fulham,Wolves
+1,2,Man City,Leeds
+2,1,Liverpool,Aston Villa
+1,4,Crystal Palace,Chelsea
+1,2,Burnley,Newcastle
+3,2,West Ham,Leicester
+1,3,Tottenham,Man United
+0,3,Sheffield United,Arsenal
+3,0,West Brom,Southampton
+0,0,Brighton,Everton
+2,2,Everton,Tottenham
+3,2,Newcastle,West Ham
+1,0,Wolves,Sheffield United
+1,1,Arsenal,Fulham
+3,1,Man United,Burnley
+1,1,Leeds,Liverpool
+0,0,Chelsea,Brighton
+2,1,Tottenham,Southampton
+1,2,Aston Villa,Man City
+3,0,Leicester,West Brom
+0,1,Arsenal,Everton
+1,1,Liverpool,Newcastle
+0,1,West Ham,Chelsea
+1,0,Sheffield United,Brighton
+0,4,Wolves,Burnley
+0,0,Leeds,Man United
+2,2,Aston Villa,West Brom
+2,1,Leicester,Crystal Palace
+1,1,Southampton,Leicester
+0,2,Crystal Palace,Man City
+2,0,Brighton,Leeds
+2,0,Chelsea,Fulham
+1,2,Everton,Aston Villa
+0,2,Newcastle,Arsenal
+4,0,Tottenham,Sheffield United
+1,1,West Brom,Wolves
+1,2,Burnley,West Ham
+2,4,Leicester,Newcastle
+3,1,Leeds,Tottenham
+0,2,Sheffield United,Crystal Palace
+1,2,Man City,Chelsea
+2,0,Liverpool,Southampton
+2,1,Wolves,Brighton
+1,3,Aston Villa,Man United
+0,1,West Ham,Everton
+3,1,Arsenal,West Brom
+0,2,Fulham,Burnley
+1,2,Man United,Leicester
+3,1,Southampton,Crystal Palace
+0,1,Chelsea,Arsenal
+0,0,Aston Villa,Everton
+2,4,Man United,Liverpool
+3,4,Newcastle,Man City
+0,4,Burnley,Leeds
+3,1,Southampton,Fulham
+1,1,Brighton,West Ham
+3,2,Crystal Palace,Aston Villa
+2,0,Tottenham,Wolves
+1,2,West Brom,Liverpool
+0,1,Everton,Sheffield United
+1,1,Man United,Fulham
+0,2,Southampton,Leeds
+3,2,Brighton,Man City
+2,1,Chelsea,Leicester
+1,0,Everton,Wolves
+1,0,Newcastle,Sheffield United
+1,2,Tottenham,Aston Villa
+1,3,Crystal Palace,Arsenal
+0,3,Burnley,Liverpool
+1,3,West Brom,West Ham
+2,0,Arsenal,Brighton
+2,1,Aston Villa,Chelsea
+0,2,Fulham,Newcastle
+3,1,Leeds,West Brom
+2,4,Leicester,Tottenham
+2,0,Liverpool,Crystal Palace
+5,0,Man City,Everton
+1,0,Sheffield United,Burnley
+3,0,West Ham,Southampton
+1,2,Wolves,Man United
