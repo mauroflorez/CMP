@@ -13,7 +13,41 @@ knitr::opts_chunk$set(
 library(MultRegCMP)
 ```
 
-```{r setup}
+The data contained in the package `epl_20_21` corresponds to the scores of the games of the English Premier League (EPL) during the season 2020-2021. The data can be accessed as:
+
+```{r }
 data("epl_20_21")
+```
+
+```{r }
+head(epl_20_21)
+```
+
+We can fit a bivariate regression model for the goals scored by the home and away team, as stated in the paper (in revision).
+
+We first adjust the data to use the `mcmc_cmp` function
+
+```{r }
+y <- cbind(epl_20_21$HG, epl_20_21$AG)
+
+X1 <- model.matrix(HG ~ 1 + HomeTeam + AwayTeam, contrasts = list(HomeTeam = "contr.sum", AwayTeam = "contr.sum"), data = epl_20_21)
+
+X2 <- model.matrix(AG ~ 1 + AwayTeam + HomeTeam, contrasts = list(AwayTeam = "contr.sum", HomeTeam = "contr.sum"), data = epl_20_21)
+
+X <- list(X1, X2)
+```
+
+Then, we fit the model as
+
+```{r }
+#fit <- mcmc_cmp(y = y, X = X, S = 10000, nburn = 1000, scale_cov_b = 0.6, 
+#                scale_cov_beta = 0.01, scale_cov_gamma = 0.02, progress = "acc_rates",
+#                v0 = 50)
+```
+
+After fitting the model, we can check the convergence visually of the parameters 
+
+```{r}
+#plot.ts(fit$posterior_beta[[1]][,1])
 ```
 

@@ -36,6 +36,8 @@
 #' \item{estimation_gamma}{Estimation of gamma parameters}
 #' \item{posterior_gamma}{List with posterior values of gamma}
 #' \item{posterior_D}{Values of covariance matrix D}
+#' \item{fitted_mu}{Posterior of location parameters for each response}
+#' \item{fitted_nu}{Posterior of shape parameters for ecah response}
 #' \item{accept_rate_b}{Acceptance rate of Random Effects}
 #' \item{accept_rate_beta}{Acceptance rate of beta}
 #' \item{accept_rate_gamma}{Acceptance rate of gamma}
@@ -236,19 +238,19 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
   post_b <- list()
   post_beta <- list()
   post_gamma <- list()
-  post_D <- list()
+  post_D <- matrix(ncol = nburn+S, nrow = length(c(D_current)))
 
   for(j in 1:J){
-    post_beta[[j]] <- matrix(ncol = k_j[j])
-    post_gamma[[j]] <- matrix(ncol = k_j[j])
+    post_b[[j]] <- matrix(nrow = n, ncol = nburn+S)
+    post_beta[[j]] <- matrix(nrow = nburn+S, ncol = k_j[j])
+    post_gamma[[j]] <- matrix(nrow = nburn+s, ncol = k_j[j])
+
+    post_b[[j]][,1] <- b_current[,j]
+    post_beta[[j]][1,] <- beta_current[[j]]
+    post_gamma[[j]][1,] <- gamma_current[[j]]
   }
 
-  post_b[[1]] = b_current
-  for(j in 1:J){
-    post_beta[[j]] <- rbind(post_beta[[j]], beta_current[[j]])
-    post_gamma[[j]] <- rbind(post_gamma[[j]], gamma_current[[j]])
-  }
-  post_D[[1]] = D_current
+  post_D[,1] = c(D_current)
 
 
   ##############################################################################
@@ -349,13 +351,12 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
 
     #############################  Save Simulations ############################
 
-    post_b[[s]] = b_current
     for(j in 1:J){
-      post_beta[[j]] <- rbind(post_beta[[j]], beta_current[[j]])
-      post_gamma[[j]] <- rbind(post_gamma[[j]], gamma_current[[j]])
+      post_b[[j]][,s] <- b_current[,j]
+      post_beta[[j]][s,] <- beta_current[[j]]
+      post_gamma[[j]][s,] <- gamma_current[[j]]
     }
-    post_D = D_current
-
+    post_D[,s] = c(D_current)
 
     ### ------------------------- Output ---------------------------- ###
 
@@ -381,15 +382,23 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
 
   #Return
   if(inc_burn == FALSE){
-    post_b <- post_b[-c(1:nburn)]
+    post_b <- purrr::map(post_b, ~ .x[, -seq_len(nburn)])
     post_beta <- purrr::map(post_beta, ~ .x[-seq_len(nburn), ])
     post_gamma <- purrr::map(post_gamma, ~ .x[-seq_len(nburn), ])
   }
 
   #Estimations
-  est_b <- Reduce(`+`, post_b)/length(post_b)
+  est_b <- purrr::map(post_b, rowMeans)
   est_beta <- purrr::map(post_beta, colMeans)
   est_gamma <- purrr::map(post_gamma, colMeans)
+
+  #Posterior fitted values
+
+  Xtbeta <- purrr::map2(post_beta, X, function(a,b) b%*%t(a))
+  Xtgamma <- purrr::map2(post_gamma, X, function(a,b) b%*%t(a))
+
+  fitted_mu <- lapply(purrr::map2(Xtbeta, post_b, `+`), exp)
+  fitted_nu <- lapply(Xtgamma, exp)
 
   if(re_chain == FALSE){
     post_b <- est_b #Just the mean of the R.E
@@ -397,7 +406,7 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
 
   return(list(posterior_b = post_b, estimation_beta = est_beta, posterior_beta = post_beta,
               estimation_gamma = est_gamma, posterior_gamma = post_gamma,
-              posterior_D = post_D, accept_rate_b = accept_b/(nburn+S),
-              accept_rate_beta = accept_beta/(nburn + S), accept_rate_gamma = accept_gamma/(nburn + S),
-              Scale_beta = S_beta, Scale_gamma = S_gamma))
+              posterior_D = post_D, fitted_mu = fitted_mu, fitted_nu = fitted_nu,
+              accept_rate_b = accept_b/(nburn+S), accept_rate_beta = accept_beta/(nburn + S),
+              accept_rate_gamma = accept_gamma/(nburn + S), Scale_beta = S_beta, Scale_gamma = S_gamma))
 }

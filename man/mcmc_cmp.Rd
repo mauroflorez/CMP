@@ -94,6 +94,8 @@ A list:
 \item{estimation_gamma}{Estimation of gamma parameters}
 \item{posterior_gamma}{List with posterior values of gamma}
 \item{posterior_D}{Values of covariance matrix D}
+\item{fitted_mu}{Posterior of location parameters for each response}
+\item{fitted_nu}{Posterior of shape parameters for ecah response}
 \item{accept_rate_b}{Acceptance rate of Random Effects}
 \item{accept_rate_beta}{Acceptance rate of beta}
 \item{accept_rate_gamma}{Acceptance rate of gamma}
