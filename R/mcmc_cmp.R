@@ -243,7 +243,7 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
   for(j in 1:J){
     post_b[[j]] <- matrix(nrow = n, ncol = nburn+S)
     post_beta[[j]] <- matrix(nrow = nburn+S, ncol = k_j[j])
-    post_gamma[[j]] <- matrix(nrow = nburn+s, ncol = k_j[j])
+    post_gamma[[j]] <- matrix(nrow = nburn+S, ncol = k_j[j])
 
     post_b[[j]][,1] <- b_current[,j]
     post_beta[[j]][1,] <- beta_current[[j]]
@@ -370,7 +370,7 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
         pb$tick()
         Sys.sleep(1 / 100)
       }
-    } else if(progress == "acc_rates" && s%%10 == 0){
+    } else if(progress == "acc_rates" && s%%100 == 0){
       cat("Progress: ", round(s/(nburn+S)*100,2), "% ---- Iteration: ", s,"/", nburn+S, "\n")
       cat("Beta Acceptance Ratio: ", accept_beta/s, "\n")
       cat("Gamma Acceptance Ratio: ", accept_gamma/s, "\n")
