@@ -12,3 +12,8 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(MultRegCMP)
 ```
+
+```{r setup}
+data("epl_20_21")
+```
+
