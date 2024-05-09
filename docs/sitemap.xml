@@ -4,12 +4,6 @@
     <loc>/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
     <loc>/articles/Example-Real-Data.html</loc>
   </url>
   <url>
@@ -22,16 +16,22 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/DIC_cmp.html</loc>
+    <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/reference/MultRegCMP-package.html</loc>
+    <loc>/LICENSE.html</loc>
   </url>
   <url>
     <loc>/reference/com_sampler.html</loc>
   </url>
   <url>
+    <loc>/reference/DIC_cmp.html</loc>
+  </url>
+  <url>
     <loc>/reference/epl_20_21.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fitting_plots.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -44,6 +44,9 @@
   </url>
   <url>
     <loc>/reference/mcmc_cmp.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MultRegCMP-package.html</loc>
   </url>
   <url>
     <loc>/reference/prod_list.html</loc>

@@ -75,14 +75,14 @@ fit$estimation_gamma
 
 or see the trace plots
 
-```{r tp}
+```{r tp, fig.height=4, fig.width=6}
 plot.ts(fit$posterior_beta[[1]], main = "Traceplot - Exchange Algorithm", ylab = "Beta_1")
 plot.ts(fit$posterior_beta[[2]], main = "Traceplot - Exchange Algorithm", ylab = "Beta_2")
 ```
 
 and for the shape parameters
 
-```{r tps}
+```{r tps, fig.height=4, fig.width=6}
 plot.ts(fit$posterior_gamma[[1]], main = "Traceplot - Exchange Algorithm", ylab = "Gamma_1")
 plot.ts(fit$posterior_gamma[[2]], main = "Traceplot - Exchange Algorithm", ylab = "Gamma_2")
 ```
@@ -91,4 +91,10 @@ Additionally `DIC_cmp` allows to calculate an approximation of the Deviance Info
 
 ```{r DIC}
 DIC_cmp(fit, X, y)
+```
+
+We can check the fitting of the model to the real data using the function `fitting_plot`
+
+```{r plot}
+fitting_plots(fit, type = "bar", S = 1000)
 ```
