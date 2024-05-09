@@ -2,9 +2,11 @@
 
 export(DIC_cmp)
 export(com_sampler)
+export(fitting_plots)
 export(llk_cmp)
 export(mcmc_cmp)
 export(prod_list)
+import(bayesplot)
 importFrom(stats,rWishart)
 importFrom(stats,rpois)
 importFrom(stats,runif)

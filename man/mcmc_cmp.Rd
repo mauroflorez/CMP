@@ -101,6 +101,8 @@ A list:
 \item{accept_rate_gamma}{Acceptance rate of gamma}
 \item{scale_beta}{Estimated Scale matrix for beta parameters}
 \item{scale_gamma}{Estimated Scale matrix for gamma parameters}
+\item{X}{List of covariates used}
+\item{y}{Matrix of observed counts}
 }
 \description{
 MCMC Algorithm to estimate the parameters in the regression model for multivariate correlated count data

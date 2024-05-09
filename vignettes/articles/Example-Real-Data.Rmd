@@ -40,14 +40,14 @@ X <- list(X1, X2)
 Then, we fit the model as
 
 ```{r }
-#fit <- mcmc_cmp(y = y, X = X, S = 10000, nburn = 1000, scale_cov_b = 0.6, 
-#                scale_cov_beta = 0.01, scale_cov_gamma = 0.02, progress = "acc_rates",
-#                v0 = 50)
+fit <- mcmc_cmp(y = y, X = X, S = 1000, nburn = 1000, scale_cov_b = 0.6, 
+                scale_cov_beta = 0.01, scale_cov_gamma = 0.02, progress = "acc_rates",
+                v0 = 50)
 ```
 
 After fitting the model, we can check the convergence visually of the parameters 
 
 ```{r}
-#plot.ts(fit$posterior_beta[[1]][,1])
+plot.ts(fit$posterior_beta[[1]][,1])
 ```
 

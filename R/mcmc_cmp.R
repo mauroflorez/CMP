@@ -43,6 +43,8 @@
 #' \item{accept_rate_gamma}{Acceptance rate of gamma}
 #' \item{scale_beta}{Estimated Scale matrix for beta parameters}
 #' \item{scale_gamma}{Estimated Scale matrix for gamma parameters}
+#' \item{X}{List of covariates used}
+#' \item{y}{Matrix of observed counts}
 #' @export
 #'
 #' @examples
@@ -408,5 +410,6 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
               estimation_gamma = est_gamma, posterior_gamma = post_gamma,
               posterior_D = post_D, fitted_mu = fitted_mu, fitted_nu = fitted_nu,
               accept_rate_b = accept_b/(nburn+S), accept_rate_beta = accept_beta/(nburn + S),
-              accept_rate_gamma = accept_gamma/(nburn + S), Scale_beta = S_beta, Scale_gamma = S_gamma))
+              accept_rate_gamma = accept_gamma/(nburn + S), Scale_beta = S_beta, Scale_gamma = S_gamma,
+              X = design_matrix, y = y))
 }
