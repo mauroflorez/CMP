@@ -21,7 +21,7 @@ llk_cmp <- function(y, mu, nu, r = 1000){
   log_qf <- log_cmp(y, mu, nu)
   log_M <- log(n_r/r)
 
-  loglik <- c(log_qf - log_Z + log_M - log_Bf)
+  loglik <- unname(c(log_qf - log_Z + log_M - log_Bf))
 
   return(loglik)
 }

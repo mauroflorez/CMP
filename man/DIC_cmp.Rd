@@ -4,14 +4,10 @@
 \alias{DIC_cmp}
 \title{DIC of the regression model}
 \usage{
-DIC_cmp(fit, X, y, S = 100)
+DIC_cmp(fit, S = 100)
 }
 \arguments{
 \item{fit}{An object from the mcmc_cmp_mh}
-
-\item{X}{Covariates list, each element is the design matrix for each column of y}
-
-\item{y}{Matrix of observations}
 
 \item{S}{Number of iterations used to calculate the DIC}
 }
@@ -19,5 +15,5 @@ DIC_cmp(fit, X, y, S = 100)
 Approximated DIC
 }
 \description{
-DIC of the regression model
+This function used an approach similar to the presented by Benson & Friel (2021) to calculate the BIC. We select S a sample size of the posterior samples to speed up computation
 }

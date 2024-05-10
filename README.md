@@ -34,14 +34,14 @@ returns the number of draws needed to sample `n` data.
 
 ``` r
 com_sampler(4, 5)
-#> [1] 5
+#> [1] 4
 
 com_sampler(1, 0.5, 10, ndraws = TRUE)
 #> $samples
-#>  [1] 5 0 0 0 3 0 1 0 0 0
+#>  [1] 6 2 1 4 1 0 3 0 0 0
 #> 
 #> $draws
-#> [1] 24
+#> [1] 12
 #> 
 #> $log_Bf
 #> [1] 1.591368
@@ -54,8 +54,7 @@ log-likelihood of the distribution as suggested by Benson and Friel
 
 ``` r
 llk_cmp(y = 2, mu = 2, nu = 1.5)
-#>     draws 
-#> -1.145585
+#> [1] -1.137954
 ```
 
 Finally, to implement our model we use the main function `mcmc_cmp`.
@@ -78,7 +77,7 @@ samples burn `nburn` and some parameters for the MCMC - Exchange
 Algorithm steps.
 
 ``` r
-fit <- mcmc_cmp(y, X, S = 50000, nburn = 1000, scale_cov_b = 0.8, scale_cov_beta = 0.04, scale_cov_gamma = 0.06, progress = "bar")
+fit <- mcmc_cmp(y, X, S = 40000, nburn = 1000, v0 = 40, scale_cov_b = 0.8, scale_cov_beta = 0.04, scale_cov_gamma = 0.06, progress = "bar")
 ```
 
 We can see the estimations of the model as
@@ -86,28 +85,28 @@ We can see the estimations of the model as
 ``` r
 fit$estimation_beta
 #> [[1]]
-#> [1]  0.44598406 -0.03606053  0.34851721
+#> [1] 0.442922680 0.007676316 0.365732306
 #> 
 #> [[2]]
-#> [1]  0.09762769  0.16574753 -0.29706902
+#> [1] -0.02466386  0.13750199 -0.11584390
 fit$estimation_gamma
 #> [[1]]
-#> [1] -0.140406008  0.006613623 -0.118505876
+#> [1] -0.15424516  0.01658011 -0.10973352
 #> 
 #> [[2]]
-#> [1] -0.009280741 -0.067052429  0.148898941
+#> [1]  0.004392599 -0.078796921  0.045069834
 ```
 
 or see the trace plots
 
 ``` r
-plot.ts(fit$posterior_beta[[1]], main = "Traceplot - Exchange Algorithm", ylab = "Beta_1")
+plot.ts(fit$posterior_beta[[1]], main = "Traceplot - Exchange Algorithm", xlab = "Beta_1")
 ```
 
 <img src="man/figures/README-tp-1.png" width="100%" />
 
 ``` r
-plot.ts(fit$posterior_beta[[2]], main = "Traceplot - Exchange Algorithm", ylab = "Beta_2")
+plot.ts(fit$posterior_beta[[2]], main = "Traceplot - Exchange Algorithm", xlab = "Beta_2")
 ```
 
 <img src="man/figures/README-tp-2.png" width="100%" />
@@ -115,13 +114,13 @@ plot.ts(fit$posterior_beta[[2]], main = "Traceplot - Exchange Algorithm", ylab =
 and for the shape parameters
 
 ``` r
-plot.ts(fit$posterior_gamma[[1]], main = "Traceplot - Exchange Algorithm", ylab = "Gamma_1")
+plot.ts(fit$posterior_gamma[[1]], main = "Traceplot - Exchange Algorithm", xlab = "Gamma_1")
 ```
 
 <img src="man/figures/README-tps-1.png" width="100%" />
 
 ``` r
-plot.ts(fit$posterior_gamma[[2]], main = "Traceplot - Exchange Algorithm", ylab = "Gamma_2")
+plot.ts(fit$posterior_gamma[[2]], main = "Traceplot - Exchange Algorithm", xlab = "Gamma_2")
 ```
 
 <img src="man/figures/README-tps-2.png" width="100%" />
@@ -130,6 +129,6 @@ Additionally `DIC_cmp` allows to calculate an approximation of the
 Deviance Information Criterion of the fitted model for each response.
 
 ``` r
-DIC_cmp(fit, X, y)
-#> [1] 152.3600 137.4799
+DIC_cmp(fit)
+#> [1] 141.9376 118.0297
 ```

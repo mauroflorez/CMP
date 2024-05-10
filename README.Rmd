@@ -63,7 +63,7 @@ y = matrix(rpois(n = length(mu), lambda = mu), nrow = n)
 To fit our model, we require the number of draws `S`, the number of samples burn `nburn` and some parameters for the MCMC - Exchange Algorithm steps.
 
 ```{r model}
-fit <- mcmc_cmp(y, X, S = 50000, nburn = 1000, scale_cov_b = 0.8, scale_cov_beta = 0.04, scale_cov_gamma = 0.06, progress = "bar")
+fit <- mcmc_cmp(y, X, S = 40000, nburn = 1000, v0 = 40, scale_cov_b = 0.8, scale_cov_beta = 0.04, scale_cov_gamma = 0.06, progress = "bar")
 ```
 
 We can see the estimations of the model as
@@ -75,20 +75,21 @@ fit$estimation_gamma
 
 or see the trace plots
 
-```{r tp}
-plot.ts(fit$posterior_beta[[1]], main = "Traceplot - Exchange Algorithm", ylab = "Beta_1")
-plot.ts(fit$posterior_beta[[2]], main = "Traceplot - Exchange Algorithm", ylab = "Beta_2")
+```{r tp, fig.height=4, fig.width=5}
+plot.ts(fit$posterior_beta[[1]], main = "Traceplot - Exchange Algorithm", xlab = "Beta_1")
+plot.ts(fit$posterior_beta[[2]], main = "Traceplot - Exchange Algorithm", xlab = "Beta_2")
 ```
 
 and for the shape parameters
 
-```{r tps}
-plot.ts(fit$posterior_gamma[[1]], main = "Traceplot - Exchange Algorithm", ylab = "Gamma_1")
-plot.ts(fit$posterior_gamma[[2]], main = "Traceplot - Exchange Algorithm", ylab = "Gamma_2")
+```{r tps, fig.height=4, fig.width=5}
+plot.ts(fit$posterior_gamma[[1]], main = "Traceplot - Exchange Algorithm", xlab = "Gamma_1")
+plot.ts(fit$posterior_gamma[[2]], main = "Traceplot - Exchange Algorithm", xlab = "Gamma_2")
 ```
 
 Additionally `DIC_cmp` allows to calculate an approximation of the Deviance Information Criterion of the fitted model for each response.
 
 ```{r DIC}
-DIC_cmp(fit, X, y)
+DIC_cmp(fit)
 ```
+

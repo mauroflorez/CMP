@@ -4,15 +4,14 @@
 \alias{fitting_plots}
 \title{Rootograms plots - Multivariate CMP}
 \usage{
-fitting_plots(fit, S = 1000)
+fitting_plots(fit, type = "rootogram", S = 100)
 }
 \arguments{
 \item{fit}{An element from `mcmc_cmp`}
 
-\item{S}{Optional. Indicates the number of posterior samples used (Default 1000)}
-}
-\value{
-A rootogram plot for each response
+\item{type}{Wheter to do a bar plot or a rootogram}
+
+\item{S}{Optional. Indicates the number of posterior samples used (Default 100)}
 }
 \description{
 Rootograms plots - Multivariate CMP
