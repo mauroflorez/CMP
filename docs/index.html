@@ -78,22 +78,21 @@
 <p>The function <code>com_sampler(mu, nu)</code> allow us to sample data from the CMP with location parameter mu and shape parameter nu. If <code>ndraws = TRUE</code> it returns the number of draws needed to sample <code>n</code> data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/com_sampler.html">com_sampler</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 5</span></span>
+<span><span class="co">#&gt; [1] 4</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/com_sampler.html">com_sampler</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span>, <span class="fl">10</span>, ndraws <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $samples</span></span>
-<span><span class="co">#&gt;  [1] 5 0 0 0 3 0 1 0 0 0</span></span>
+<span><span class="co">#&gt;  [1] 6 2 1 4 1 0 3 0 0 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $draws</span></span>
-<span><span class="co">#&gt; [1] 24</span></span>
+<span><span class="co">#&gt; [1] 12</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $log_Bf</span></span>
 <span><span class="co">#&gt; [1] 1.591368</span></span></code></pre></div>
 <p>Functions <code>log_cmp</code> calculate the log-likelihood of the unnormalized component of the CMP, whilea <code>llk_cmp</code> calculate the approximate log-likelihood of the distribution as suggested by Benson and Friel (2021).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/llk_cmp.html">llk_cmp</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">2</span>, mu <span class="op">=</span> <span class="fl">2</span>, nu <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     draws </span></span>
-<span><span class="co">#&gt; -1.145585</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] -1.137954</span></span></code></pre></div>
 <p>Finally, to implement our model we use the main function <code>mcmc_cmp</code>. This function requires two important componentes; <code>X</code> is the covariates information, this object is a list, where every element of the list is a covariance matrix for every response. On the other hand, <code>y</code> is a matrix (nxJ) containing all the J response variables and the n observations. We can see an example below</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">=</span> <span class="fl">50</span>; <span class="va">J</span> <span class="op">=</span> <span class="fl">2</span></span>
@@ -103,39 +102,39 @@
 <span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mu</span><span class="op">)</span>, lambda <span class="op">=</span> <span class="va">mu</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span></code></pre></div>
 <p>To fit our model, we require the number of draws <code>S</code>, the number of samples burn <code>nburn</code> and some parameters for the MCMC - Exchange Algorithm steps.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mcmc_cmp.html">mcmc_cmp</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, S <span class="op">=</span> <span class="fl">50000</span>, nburn <span class="op">=</span> <span class="fl">1000</span>, scale_cov_b <span class="op">=</span> <span class="fl">0.8</span>, scale_cov_beta <span class="op">=</span> <span class="fl">0.04</span>, scale_cov_gamma <span class="op">=</span> <span class="fl">0.06</span>, progress <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mcmc_cmp.html">mcmc_cmp</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, S <span class="op">=</span> <span class="fl">40000</span>, nburn <span class="op">=</span> <span class="fl">1000</span>, v0 <span class="op">=</span> <span class="fl">40</span>, scale_cov_b <span class="op">=</span> <span class="fl">0.8</span>, scale_cov_beta <span class="op">=</span> <span class="fl">0.04</span>, scale_cov_gamma <span class="op">=</span> <span class="fl">0.06</span>, progress <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
 <p>We can see the estimations of the model as</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span><span class="op">$</span><span class="va">estimation_beta</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1]  0.44598406 -0.03606053  0.34851721</span></span>
+<span><span class="co">#&gt; [1] 0.442922680 0.007676316 0.365732306</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1]  0.09762769  0.16574753 -0.29706902</span></span>
+<span><span class="co">#&gt; [1] -0.02466386  0.13750199 -0.11584390</span></span>
 <span><span class="va">fit</span><span class="op">$</span><span class="va">estimation_gamma</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] -0.140406008  0.006613623 -0.118505876</span></span>
+<span><span class="co">#&gt; [1] -0.15424516  0.01658011 -0.10973352</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] -0.009280741 -0.067052429  0.148898941</span></span></code></pre></div>
+<span><span class="co">#&gt; [1]  0.004392599 -0.078796921  0.045069834</span></span></code></pre></div>
 <p>or see the trace plots</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_beta</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, ylab <span class="op">=</span> <span class="st">"Beta_1"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_beta</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, xlab <span class="op">=</span> <span class="st">"Beta_1"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-tp-1.png" width="100%"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_beta</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, ylab <span class="op">=</span> <span class="st">"Beta_2"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_beta</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, xlab <span class="op">=</span> <span class="st">"Beta_2"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-tp-2.png" width="100%"></p>
 <p>and for the shape parameters</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_gamma</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, ylab <span class="op">=</span> <span class="st">"Gamma_1"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_gamma</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, xlab <span class="op">=</span> <span class="st">"Gamma_1"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-tps-1.png" width="100%"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_gamma</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, ylab <span class="op">=</span> <span class="st">"Gamma_2"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_gamma</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, xlab <span class="op">=</span> <span class="st">"Gamma_2"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-tps-2.png" width="100%"></p>
 <p>Additionally <code>DIC_cmp</code> allows to calculate an approximation of the Deviance Information Criterion of the fitted model for each response.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/DIC_cmp.html">DIC_cmp</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">X</span>, <span class="va">y</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 152.3600 137.4799</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/DIC_cmp.html">DIC_cmp</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 141.9376 118.0297</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
