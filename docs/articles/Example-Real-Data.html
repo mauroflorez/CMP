@@ -102,114 +102,19 @@ function</p>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">X1</span>, <span class="va">X2</span><span class="op">)</span></span></code></pre></div>
 <p>Then, we fit the model as</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mcmc_cmp.html">mcmc_cmp</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span>, X <span class="op">=</span> <span class="va">X</span>, S <span class="op">=</span> <span class="fl">1000</span>, nburn <span class="op">=</span> <span class="fl">1000</span>, scale_cov_b <span class="op">=</span> <span class="fl">0.6</span>, </span>
-<span>                scale_cov_beta <span class="op">=</span> <span class="fl">0.01</span>, scale_cov_gamma <span class="op">=</span> <span class="fl">0.02</span>, progress <span class="op">=</span> <span class="st">"acc_rates"</span>,</span>
-<span>                v0 <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Progress:  5 % ---- Iteration:  100 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.47 0.49 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.3 0.27 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3823421 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  10 % ---- Iteration:  200 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.51 0.495 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.275 0.245 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3814079 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  15 % ---- Iteration:  300 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4833333 0.46 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.3033333 0.2533333 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3800702 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  20 % ---- Iteration:  400 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4875 0.465 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.3 0.2625 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3707632 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  25 % ---- Iteration:  500 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.488 0.47 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.292 0.282 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3681 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  30 % ---- Iteration:  600 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4916667 0.4833333 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2866667 0.2766667 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3697982 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  35 % ---- Iteration:  700 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4871429 0.4814286 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2742857 0.2785714 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3672105 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  40 % ---- Iteration:  800 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.47625 0.4725 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2725 0.27375 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3660329 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  45 % ---- Iteration:  900 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4766667 0.4677778 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2644444 0.2666667 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3642895 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  50 % ---- Iteration:  1000 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.48 0.47 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.263 0.262 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3629 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  55 % ---- Iteration:  1100 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4818182 0.4636364 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2636364 0.2618182 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3597153 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  60 % ---- Iteration:  1200 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4766667 0.4616667 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2591667 0.2616667 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3573684 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  65 % ---- Iteration:  1300 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4707692 0.4630769 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.25 0.2546154 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3571802 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  70 % ---- Iteration:  1400 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4742857 0.4707143 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2514286 0.2507143 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3562086 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  75 % ---- Iteration:  1500 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4733333 0.468 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2506667 0.254 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3546702 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  80 % ---- Iteration:  1600 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.475625 0.468125 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.246875 0.2525 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3528766 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  85 % ---- Iteration:  1700 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4741176 0.4664706 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2458824 0.2470588 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.350969 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  90 % ---- Iteration:  1800 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4733333 0.4738889 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.2494444 0.25 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3495585 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  95 % ---- Iteration:  1900 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4742105 0.4726316 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.25 0.2478947 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3481177 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------# </span></span>
-<span><span class="co">#&gt; Progress:  100 % ---- Iteration:  2000 / 2000 </span></span>
-<span><span class="co">#&gt; Beta Acceptance Ratio:  0.4775 0.4735 </span></span>
-<span><span class="co">#&gt; Gamma Acceptance Ratio:  0.247 0.2495 </span></span>
-<span><span class="co">#&gt; R.E Acceptance Ratio:  0.3457763 </span></span>
-<span><span class="co">#&gt; #----------------------------------------------#</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mcmc_cmp.html">mcmc_cmp</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span>, X <span class="op">=</span> <span class="va">X</span>, S <span class="op">=</span> <span class="fl">200000</span>, nburn <span class="op">=</span> <span class="fl">10000</span>, scale_cov_b <span class="op">=</span> <span class="fl">0.6</span>, </span>
+<span>                scale_cov_beta <span class="op">=</span> <span class="fl">0.01</span>, scale_cov_gamma <span class="op">=</span> <span class="fl">0.02</span>, progress <span class="op">=</span> <span class="st">"bar"</span>,</span>
+<span>                v0 <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <p>After fitting the model, we can check the convergence visually of the
 parameters</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_beta</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Example-Real-Data_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_beta</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot of the first 10 parameters associated to y_1"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Example-Real-Data_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
+<p>We can check the fitting of the model to the real data using the
+function <code>fitting_plot</code></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fitting_plots.html">fitting_plots</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"bar"</span>, S <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Example-Real-Data_files/figure-html/plot-1.png" width="480"><img src="Example-Real-Data_files/figure-html/plot-2.png" width="480"></p>
   </main>
 </div>
 
