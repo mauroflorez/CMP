@@ -5,9 +5,11 @@
 
 MultRegCMP is an R package designed to fit a Bayesian Regression Model
 for multivariate count data. We assume that the data is distributed
-according to the Conway-Maxwell-Poisson distribution, and for each
-response variable, we can associate different covariates. This model
-allows us to account for correlations between the counts.
+according to the Conway-Maxwell-Poisson distribution (Conway and Maxwell
+1962), and for each response variable, we can associate different
+covariates. This model allows us to account for correlations between the
+counts by using latent effects based on the Chib and Winkelmann (2001)
+proposal.
 
 You can find more details about this model once our paper is published.
 
@@ -19,7 +21,7 @@ You can install the development version of MultRegCMP like so:
 devtools::install_github("mauroflorez/MultRegCMP")
 ```
 
-## Example
+### Load package
 
 Here you can see how we can use the package and their functions
 
@@ -28,9 +30,12 @@ library(MultRegCMP)
 ## basic example code
 ```
 
+## Main functions
+
 The function `com_sampler(mu, nu)` allow us to sample data from the CMP
 with location parameter mu and shape parameter nu. If `ndraws = TRUE` it
-returns the number of draws needed to sample `n` data.
+returns the number of draws needed to sample `n` data. It uses the
+rejection sampler proposed by Benson and Friel (2021).
 
 ``` r
 com_sampler(4, 5)
@@ -38,23 +43,23 @@ com_sampler(4, 5)
 
 com_sampler(1, 0.5, 10, ndraws = TRUE)
 #> $samples
-#>  [1] 6 2 1 4 1 0 3 0 0 0
+#>  [1] 1 1 4 2 5 1 2 0 2 1
 #> 
 #> $draws
-#> [1] 12
+#> [1] 20
 #> 
 #> $log_Bf
 #> [1] 1.591368
 ```
 
 Functions `log_cmp` calculate the log-likelihood of the unnormalized
-component of the CMP, whilea `llk_cmp` calculate the approximate
+component of the CMP, while `llk_cmp` calculate the approximate
 log-likelihood of the distribution as suggested by Benson and Friel
 (2021).
 
 ``` r
 llk_cmp(y = 2, mu = 2, nu = 1.5)
-#> [1] -1.137954
+#> [1] -1.148141
 ```
 
 Finally, to implement our model we use the main function `mcmc_cmp`.
@@ -80,55 +85,83 @@ Algorithm steps.
 fit <- mcmc_cmp(y, X, S = 40000, nburn = 1000, v0 = 40, scale_cov_b = 0.8, scale_cov_beta = 0.04, scale_cov_gamma = 0.06, progress = "bar")
 ```
 
+### Parameter Estimation
+
 We can see the estimations of the model as
 
 ``` r
 fit$estimation_beta
 #> [[1]]
-#> [1] 0.442922680 0.007676316 0.365732306
+#> [1] 0.30977519 0.03614515 0.43375142
 #> 
 #> [[2]]
-#> [1] -0.02466386  0.13750199 -0.11584390
+#> [1]  0.03725911  0.13443572 -0.16555769
 fit$estimation_gamma
 #> [[1]]
-#> [1] -0.15424516  0.01658011 -0.10973352
+#> [1] -0.08724856 -0.01579589 -0.09731214
 #> 
 #> [[2]]
-#> [1]  0.004392599 -0.078796921  0.045069834
+#> [1] -0.02521666 -0.04461323  0.08724741
 ```
 
-or see the trace plots
+Also, we plot the trace plots of the parameters associated to the
+location and shape parameters to check convergence visually. Here we can
+see the trace plots associated to the first response variable:
 
-``` r
-plot.ts(fit$posterior_beta[[1]], main = "Traceplot - Exchange Algorithm", xlab = "Beta_1")
-```
+<img src="man/figures/README-tp-1.png" width="50%" />
 
-<img src="man/figures/README-tp-1.png" width="100%" />
+and similarly for the parameters of the second response.
 
-``` r
-plot.ts(fit$posterior_beta[[2]], main = "Traceplot - Exchange Algorithm", xlab = "Beta_2")
-```
-
-<img src="man/figures/README-tp-2.png" width="100%" />
-
-and for the shape parameters
-
-``` r
-plot.ts(fit$posterior_gamma[[1]], main = "Traceplot - Exchange Algorithm", xlab = "Gamma_1")
-```
-
-<img src="man/figures/README-tps-1.png" width="100%" />
-
-``` r
-plot.ts(fit$posterior_gamma[[2]], main = "Traceplot - Exchange Algorithm", xlab = "Gamma_2")
-```
-
-<img src="man/figures/README-tps-2.png" width="100%" />
+<img src="man/figures/README-tp2-1.png" width="50%" />
 
 Additionally `DIC_cmp` allows to calculate an approximation of the
-Deviance Information Criterion of the fitted model for each response.
+Deviance Information Criterion (Spiegelhalter et al. 2002) of the fitted
+model for each response.
 
 ``` r
 DIC_cmp(fit)
-#> [1] 141.9376 118.0297
+#> [1] 143.4882 143.9974
 ```
+
+## References
+
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
+
+<div id="ref-benson2021" class="csl-entry">
+
+Benson, Alan, and Nial Friel. 2021. “<span class="nocase">Bayesian
+inference, model selection and likelihood estimation using fast
+rejection sampling: the Conway-Maxwell-Poisson distribution</span>.”
+*Bayesian Analysis* 16 (3): 905–31.
+
+</div>
+
+<div id="ref-chib2001" class="csl-entry">
+
+Chib, Siddhartha, and Rainer Winkelmann. 2001.
+“<span class="nocase">Markov chain Monte Carlo analysis of correlated
+count data</span>.” *Journal of Business & Economic Statistics* 19 (4):
+428–35.
+
+</div>
+
+<div id="ref-conway1962" class="csl-entry">
+
+Conway, Richard W, and William L Maxwell. 1962. “A Queuing Model with
+State Dependent Service Rates.” *Journal of Industrial Engineering* 12
+(2): 132–36.
+
+</div>
+
+<div id="ref-spiegelhalterbayesian" class="csl-entry">
+
+Spiegelhalter, David J., Nicola G. Best, Bradley P. Carlin, and Angelika
+Van Der Linde. 2002. “<span class="nocase">Bayesian Measures of Model
+Complexity and Fit</span>.” *Journal of the Royal Statistical Society
+Series B: Statistical Methodology* 64 (4): 583–639.
+<https://doi.org/10.1111/1467-9868.00353>.
+
+</div>
+
+</div>

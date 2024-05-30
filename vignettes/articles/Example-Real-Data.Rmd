@@ -1,5 +1,5 @@
 ---
-title: "Example Real Data"
+title: "Example Real Data: English Premier League - Season 20-21"
 ---
 
 ```{r, include = FALSE}
@@ -9,8 +9,13 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Setup
+
 ```{r setup}
 library(MultRegCMP)
+library(ggplot2)
+library(ggrepel)
+library(latex2exp)
 ```
 
 The data contained in the package `epl_20_21` corresponds to the scores of the games of the English Premier League (EPL) during the season 2020-2021. The data can be accessed as:
@@ -22,6 +27,8 @@ data("epl_20_21")
 ```{r }
 head(epl_20_21)
 ```
+
+## Fitting
 
 We can fit a bivariate regression model for the goals scored by the home and away team, as stated in the paper (in revision).
 
@@ -40,20 +47,85 @@ X <- list(X1, X2)
 Then, we fit the model as
 
 ```{r }
-fit <- mcmc_cmp(y = y, X = X, S = 200000, nburn = 10000, scale_cov_b = 0.6, 
+fit <- mcmc_cmp(y = y, X = X, S = 100000, nburn = 10000, scale_cov_b = 0.6, 
                 scale_cov_beta = 0.01, scale_cov_gamma = 0.02, progress = "bar",
                 v0 = 50)
 ```
+## Convergence Diagnostic
 
-After fitting the model, we can check the convergence visually of the parameters 
+After fitting the model, we can check the convergence visually of the parameters by plotting their trace plots.
 
 ```{r fig.height=4, fig.width=6}
-plot.ts(fit$posterior_beta[[1]][,1:10], main = "Traceplot of the first 10 parameters associated to y_1")
+list_colors <- c("#D1D1D1", "#BDBDBD", "#333333", "#424242", "#575757",
+                 "#6B6B6B", "#000000", "#A8A8A8", "#949494", "#808080")
+list_colors <- rep(list_colors, 10)[1:ncol(fit$posterior_beta[[1]])]
+
+plot(NULL, ylim = c(min(fit$posterior_beta[[1]]), max(fit$posterior_beta[[1]])), xlim = c(0, nrow(fit$posterior_beta[[1]])),
+     ylab = expression(beta[ij]), xlab = "Iteration",
+     main = "Traceplot of the parameters associated to the Home Goals")
+
+for(beta in 1:ncol(fit$posterior_beta[[1]])){
+  lines(fit$posterior_beta[[1]][,beta], col = list_colors[beta])
+}
+
 ```
 
-We can check the fitting of the model to the real data using the function `fitting_plot`
+We can check the fitting of the model to the real data using the function `fitting_plot` to plot the Rootograms for each response.
 
-```{r plot, fig.height=3, fig.width=5}
+```{r plot, echo=FALSE, fig.height=3, fig.width=5}
 fitting_plots(fit, type = "bar", S = 1000)
 ```
 
+## Parameters Estimation
+
+We can also plot the estimated parameters to facilitate their interpretation.
+
+```{r }
+beta1_est <- fit$estimation_beta[[1]]
+beta2_est <- fit$estimation_beta[[2]]
+
+off_home <- beta1_est[2:20]
+off_home <- c(off_home, 0 - sum(off_home)) #Sum-to-zero constraint
+def_away <- beta1_est[21:39]
+def_away <- c(def_away, 0 - sum(def_away)) #Sum-to-zero constraint
+
+def_home <- beta2_est[21:39]
+def_home <- c(def_home, 0 - sum(def_home)) #Sum-to-zero constraint
+off_away <- beta2_est[2:20]
+off_away <- c(off_away, 0 - sum(off_away)) #Sum-to-zero constraint
+```
+
+```{r echo=FALSE}
+personal_theme =   theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+table_teams = data.frame("Home" = levels(factor(epl_20_21$HomeTeam)), 
+                         "Attack Home" = exp(off_home), "Defense Home" = exp(-def_home), 
+                         "Attack Away" = exp(off_away), "Defense Away" = exp(-def_away))
+```
+
+Below we can find the plots for the strengths playing at Home and Away. With these plots we can identify the teams that had a good season and those who had the worst performance.
+
+```{r parameters, echo=TRUE, fig.height=4, fig.width=6, message=FALSE, warning=FALSE, out.width = '50%'}
+ggplot(table_teams, aes(x = Attack.Home, y = Defense.Home)) +
+  geom_hline(yintercept = 1, linetype = "dashed", color = "grey50") +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "grey50") +
+  geom_point() +
+  geom_label_repel(aes(label = Home), box.padding = 0.25, point.padding = 0.5, 
+                   segment.color = "grey50") +
+  labs(title = "Strengths playing Home",
+       x = TeX("Attack $(\\exp(\\beta^{\\omega_{H_i}}))$"), 
+       y = TeX("Defense $(\\exp(-\\beta^{\\delta_{H_i}}))$")) + 
+  personal_theme
+
+ggplot(table_teams, aes(x = Attack.Away, y = Defense.Away)) +
+  geom_hline(yintercept = 1, linetype = "dashed", color = "grey50") +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "grey50") +
+  geom_point() +
+  geom_label_repel(aes(label = Home), box.padding = 0.25, point.padding = 0.5,
+                   segment.color = "grey50") +
+  labs(title = "Strengths playing Away",
+       x = TeX("Attack $(\\exp(\\beta^{\\omega_{A_i}}))$"), 
+       y = TeX("Defense $(\\exp(-\\beta^{\\delta_{A_i}}))$")) + 
+  personal_theme
+```

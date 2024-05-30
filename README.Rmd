@@ -1,5 +1,6 @@
 ---
 output: github_document
+bibliography: myref_cmp.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -15,7 +16,7 @@ knitr::opts_chunk$set(
 
 # MultRegCMP
 
-MultRegCMP is an R package designed to fit a Bayesian Regression Model for multivariate count data. We assume that the data is distributed according to the Conway-Maxwell-Poisson distribution, and for each response variable, we can associate different covariates. This model allows us to account for correlations between the counts.
+MultRegCMP is an R package designed to fit a Bayesian Regression Model for multivariate count data. We assume that the data is distributed according to the Conway-Maxwell-Poisson distribution [@conway1962], and for each response variable, we can associate different covariates. This model allows us to account for correlations between the counts by using latent effects based on the @chib2001 proposal.
 
 You can find more details about this model once our paper is published.
 
@@ -27,7 +28,7 @@ You can install the development version of MultRegCMP like so:
 devtools::install_github("mauroflorez/MultRegCMP")
 ```
 
-## Example
+### Load package
 
 Here you can see how we can use the package and their functions
 
@@ -36,7 +37,9 @@ library(MultRegCMP)
 ## basic example code
 ```
 
-The function `com_sampler(mu, nu)` allow us to sample data from the CMP with location parameter mu and shape parameter nu. If `ndraws = TRUE` it returns the number of draws needed to sample `n` data.
+## Main functions
+
+The function `com_sampler(mu, nu)` allow us to sample data from the CMP with location parameter mu and shape parameter nu. If `ndraws = TRUE` it returns the number of draws needed to sample `n` data. It uses the rejection sampler proposed by @benson2021.
 
 ```{r com_sampler}
 com_sampler(4, 5)
@@ -44,7 +47,7 @@ com_sampler(4, 5)
 com_sampler(1, 0.5, 10, ndraws = TRUE)
 ```
 
-Functions `log_cmp` calculate the log-likelihood of the unnormalized component of the CMP, whilea `llk_cmp` calculate the approximate log-likelihood of the distribution as suggested by Benson and Friel (2021). 
+Functions `log_cmp` calculate the log-likelihood of the unnormalized component of the CMP, while `llk_cmp` calculate the approximate log-likelihood of the distribution as suggested by @benson2021. 
 
 ```{r llk}
 llk_cmp(y = 2, mu = 2, nu = 1.5)
@@ -65,6 +68,7 @@ To fit our model, we require the number of draws `S`, the number of samples burn
 ```{r model}
 fit <- mcmc_cmp(y, X, S = 40000, nburn = 1000, v0 = 40, scale_cov_b = 0.8, scale_cov_beta = 0.04, scale_cov_gamma = 0.06, progress = "bar")
 ```
+### Parameter Estimation
 
 We can see the estimations of the model as
 
@@ -72,24 +76,51 @@ We can see the estimations of the model as
 fit$estimation_beta
 fit$estimation_gamma
 ```
+Also, we plot the trace plots of the parameters associated to the location and shape parameters to check convergence visually. Here we can see the trace plots associated to the first response variable:
 
-or see the trace plots
+```{r tp, echo=FALSE, fig.height=6, fig.width=6, out.width='50%'}
+post_beta <- fit$posterior_beta[[1]]
+post_gamma <- fit$posterior_gamma[[1]]
 
-```{r tp, fig.height=4, fig.width=5}
-plot.ts(fit$posterior_beta[[1]], main = "Traceplot - Exchange Algorithm", xlab = "Beta_1")
-plot.ts(fit$posterior_beta[[2]], main = "Traceplot - Exchange Algorithm", xlab = "Beta_2")
+plot(NULL, ylim = c(min(post_beta, post_gamma) - 0.2, max(post_beta, post_gamma) + 0.2),
+     xlim = c(0, nrow(post_beta)),
+     main = "Trace plots - Exchange Algorithm", xlab = "Iteration", ylab = "Posterior")
+     
+for(j in 1:ncol(post_beta)){
+  lines(post_beta[,j], lty = j)
+  lines(post_gamma[,j], col = "darkgoldenrod", lty = j)
+}
+
+legend("top", legend = c(expression(beta[11]), expression(beta[12]), expression(beta[13])), 
+       lty = c(1,2,3), horiz = TRUE)
+legend("bottom", legend = c(expression(gamma[11]), expression(gamma[12]), expression(gamma[13])), 
+       col = rep("darkgoldenrod", 3), lty = c(1,2,3), horiz = TRUE)
 ```
 
-and for the shape parameters
+and similarly for the parameters of the second response.
 
-```{r tps, fig.height=4, fig.width=5}
-plot.ts(fit$posterior_gamma[[1]], main = "Traceplot - Exchange Algorithm", xlab = "Gamma_1")
-plot.ts(fit$posterior_gamma[[2]], main = "Traceplot - Exchange Algorithm", xlab = "Gamma_2")
+```{r tp2, echo=FALSE, fig.height=6, fig.width=6, out.width='50%'}
+post_beta <- fit$posterior_beta[[2]]
+post_gamma <- fit$posterior_gamma[[2]]
+
+plot(NULL, ylim = c(min(post_beta, post_gamma) - 0.2, max(post_beta, post_gamma) + 0.2),
+     xlim = c(0, nrow(post_beta)),
+     main = "Trace plots - Exchange Algorithm", xlab = "Iteration", ylab = "Posterior")
+     
+for(j in 1:ncol(post_beta)){
+  lines(post_beta[,j], lty = j)
+  lines(post_gamma[,j], col = "darkgoldenrod", lty = j)
+}
+
+legend("top", legend = c(expression(beta[21]), expression(beta[22]), expression(beta[23])), 
+       lty = c(1,2,3), horiz = TRUE)
+legend("bottom", legend = c(expression(gamma[21]), expression(gamma[22]), expression(gamma[23])), 
+       col = rep("darkgoldenrod", 3), lty = c(1,2,3), horiz = TRUE)
 ```
 
-Additionally `DIC_cmp` allows to calculate an approximation of the Deviance Information Criterion of the fitted model for each response.
+Additionally `DIC_cmp` allows to calculate an approximation of the Deviance Information Criterion [@spiegelhalterbayesian] of the fitted model for each response. 
 
 ```{r DIC}
 DIC_cmp(fit)
 ```
-
+## References
