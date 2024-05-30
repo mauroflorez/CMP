@@ -1,10 +1,10 @@
 Package: MultRegCMP
 Type: Package
-Title: MCMC estimation for a Multivariate Conway-Maxwell-Poisson Regression Model
+Title: Bayesian Multivariate Conway-Maxwell-Poisson Regression Model for Correlated Count Data
 Version: 0.1.0
 Author: Mauro Florez
 Maintainer: Mauro Florez <mf53@rice.edu>
-Description: MCMC Algorithm to estimate the parameters in a multivariate Conway-Maxwell-Poisson model for correlated count data.
+Description: MultRegCMP is an R package designed to fit a Bayesian Regression Model for multivariate count data. We assume that the data is distributed according to the Conway-Maxwell-Poisson distribution (Conway and Maxwell 1962), and for each response variable, we can associate different covariates. This model allows us to account for correlations between the counts by using latent effects based on the Chib and Winkelmann (2001) proposal.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
