@@ -104,7 +104,7 @@ table_teams = data.frame("Home" = levels(factor(epl_20_21$HomeTeam)),
                          "Attack Away" = exp(off_away), "Defense Away" = exp(-def_away))
 ```
 
-Below we can find the plots for the strengths playing at Home and Away. With these plots we can identify the teams that had a good season and those who had the worst performance.
+We can find the plots for the strengths of teams playing at home and away below. These plots allow us to identify the teams that had a good season and those with the worst performance. The point (1,1) in the plots represents the mass center. Teams above the horizontal and vertical lines (y = 1, x = 1) performed better than teams located below them.
 
 ```{r parameters, echo=TRUE, fig.height=4, fig.width=6, message=FALSE, warning=FALSE, out.width = '50%'}
 ggplot(table_teams, aes(x = Attack.Home, y = Defense.Home)) +
@@ -129,3 +129,7 @@ ggplot(table_teams, aes(x = Attack.Away, y = Defense.Away)) +
        y = TeX("Defense $(\\exp(-\\beta^{\\delta_{A_i}}))$")) + 
   personal_theme
 ```
+
+We observed that Manchester City, the champion in the 2020-2021 season, was the best team both playing at home and away, followed by Manchester United and Liverpool. Manchester United, however, had a poor defense compared to the average team playing at home, conceding 28 goals at their stadium, Old Trafford. Liverpool was characterized by their strong attack when playing away but had an acceptable performance playing at home. Sheffield United, Fulham, and West Bromwich were relegated that season.
+
+Data available in [https://www.football-data.co.uk/](https://www.football-data.co.uk/)

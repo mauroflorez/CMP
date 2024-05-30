@@ -41,7 +41,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/Example-Real-Data.html">Example Real Data</a>
+    <a class="dropdown-item" href="articles/Example-Real-Data.html">Example Real Data: English Premier League - Season 20-21</a>
   </div>
 </li>
       </ul>
@@ -59,7 +59,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="multregcmp">MultRegCMP<a class="anchor" aria-label="anchor" href="#multregcmp"></a>
 </h1></div>
-<p>MultRegCMP is an R package designed to fit a Bayesian Regression Model for multivariate count data. We assume that the data is distributed according to the Conway-Maxwell-Poisson distribution, and for each response variable, we can associate different covariates. This model allows us to account for correlations between the counts.</p>
+<p>MultRegCMP is an R package designed to fit a Bayesian Regression Model for multivariate count data. We assume that the data is distributed according to the Conway-Maxwell-Poisson distribution (Conway and Maxwell 1962), and for each response variable, we can associate different covariates. This model allows us to account for correlations between the counts by using latent effects based on the Chib and Winkelmann (2001) proposal.</p>
 <p>You can find more details about this model once our paper is published.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -67,32 +67,36 @@
 <p>You can install the development version of MultRegCMP like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mauroflorez/MultRegCMP"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
-</h2>
+<div class="section level3">
+<h3 id="load-package">Load package<a class="anchor" aria-label="anchor" href="#load-package"></a>
+</h3>
 <p>Here you can see how we can use the package and their functions</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">MultRegCMP</span><span class="op">)</span></span>
 <span><span class="co">## basic example code</span></span></code></pre></div>
-<p>The function <code>com_sampler(mu, nu)</code> allow us to sample data from the CMP with location parameter mu and shape parameter nu. If <code>ndraws = TRUE</code> it returns the number of draws needed to sample <code>n</code> data.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="main-functions">Main functions<a class="anchor" aria-label="anchor" href="#main-functions"></a>
+</h2>
+<p>The function <code>com_sampler(mu, nu)</code> allow us to sample data from the CMP with location parameter mu and shape parameter nu. If <code>ndraws = TRUE</code> it returns the number of draws needed to sample <code>n</code> data. It uses the rejection sampler proposed by Benson and Friel (2021).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/com_sampler.html">com_sampler</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 4</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/com_sampler.html">com_sampler</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span>, <span class="fl">10</span>, ndraws <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $samples</span></span>
-<span><span class="co">#&gt;  [1] 6 2 1 4 1 0 3 0 0 0</span></span>
+<span><span class="co">#&gt;  [1] 1 1 4 2 5 1 2 0 2 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $draws</span></span>
-<span><span class="co">#&gt; [1] 12</span></span>
+<span><span class="co">#&gt; [1] 20</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $log_Bf</span></span>
 <span><span class="co">#&gt; [1] 1.591368</span></span></code></pre></div>
-<p>Functions <code>log_cmp</code> calculate the log-likelihood of the unnormalized component of the CMP, whilea <code>llk_cmp</code> calculate the approximate log-likelihood of the distribution as suggested by Benson and Friel (2021).</p>
+<p>Functions <code>log_cmp</code> calculate the log-likelihood of the unnormalized component of the CMP, while <code>llk_cmp</code> calculate the approximate log-likelihood of the distribution as suggested by Benson and Friel (2021).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/llk_cmp.html">llk_cmp</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">2</span>, mu <span class="op">=</span> <span class="fl">2</span>, nu <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] -1.137954</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] -1.148141</span></span></code></pre></div>
 <p>Finally, to implement our model we use the main function <code>mcmc_cmp</code>. This function requires two important componentes; <code>X</code> is the covariates information, this object is a list, where every element of the list is a covariance matrix for every response. On the other hand, <code>y</code> is a matrix (nxJ) containing all the J response variables and the n observations. We can see an example below</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">=</span> <span class="fl">50</span>; <span class="va">J</span> <span class="op">=</span> <span class="fl">2</span></span>
@@ -103,38 +107,50 @@
 <p>To fit our model, we require the number of draws <code>S</code>, the number of samples burn <code>nburn</code> and some parameters for the MCMC - Exchange Algorithm steps.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mcmc_cmp.html">mcmc_cmp</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, S <span class="op">=</span> <span class="fl">40000</span>, nburn <span class="op">=</span> <span class="fl">1000</span>, v0 <span class="op">=</span> <span class="fl">40</span>, scale_cov_b <span class="op">=</span> <span class="fl">0.8</span>, scale_cov_beta <span class="op">=</span> <span class="fl">0.04</span>, scale_cov_gamma <span class="op">=</span> <span class="fl">0.06</span>, progress <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="parameter-estimation">Parameter Estimation<a class="anchor" aria-label="anchor" href="#parameter-estimation"></a>
+</h3>
 <p>We can see the estimations of the model as</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span><span class="op">$</span><span class="va">estimation_beta</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] 0.442922680 0.007676316 0.365732306</span></span>
+<span><span class="co">#&gt; [1] 0.30977519 0.03614515 0.43375142</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] -0.02466386  0.13750199 -0.11584390</span></span>
+<span><span class="co">#&gt; [1]  0.03725911  0.13443572 -0.16555769</span></span>
 <span><span class="va">fit</span><span class="op">$</span><span class="va">estimation_gamma</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] -0.15424516  0.01658011 -0.10973352</span></span>
+<span><span class="co">#&gt; [1] -0.08724856 -0.01579589 -0.09731214</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1]  0.004392599 -0.078796921  0.045069834</span></span></code></pre></div>
-<p>or see the trace plots</p>
+<span><span class="co">#&gt; [1] -0.02521666 -0.04461323  0.08724741</span></span></code></pre></div>
+<p>Also, we plot the trace plots of the parameters associated to the location and shape parameters to check convergence visually. Here we can see the trace plots associated to the first response variable:</p>
+<p><img src="reference/figures/README-tp-1.png" width="50%"></p>
+<p>and similarly for the parameters of the second response.</p>
+<p><img src="reference/figures/README-tp2-1.png" width="50%"></p>
+<p>Additionally <code>DIC_cmp</code> allows to calculate an approximation of the Deviance Information Criterion (Spiegelhalter et al. 2002) of the fitted model for each response.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_beta</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, xlab <span class="op">=</span> <span class="st">"Beta_1"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-tp-1.png" width="100%"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_beta</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, xlab <span class="op">=</span> <span class="st">"Beta_2"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-tp-2.png" width="100%"></p>
-<p>and for the shape parameters</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_gamma</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, xlab <span class="op">=</span> <span class="st">"Gamma_1"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-tps-1.png" width="100%"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">posterior_gamma</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Traceplot - Exchange Algorithm"</span>, xlab <span class="op">=</span> <span class="st">"Gamma_2"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-tps-2.png" width="100%"></p>
-<p>Additionally <code>DIC_cmp</code> allows to calculate an approximation of the Deviance Information Criterion of the fitted model for each response.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/DIC_cmp.html">DIC_cmp</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 141.9376 118.0297</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 143.4882 143.9974</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-benson2021" class="csl-entry">
+Benson, Alan, and Nial Friel. 2021. “<span class="nocase">Bayesian inference, model selection and likelihood estimation using fast rejection sampling: the Conway-Maxwell-Poisson distribution</span>.” <em>Bayesian Analysis</em> 16 (3): 905–31.
+</div>
+<div id="ref-chib2001" class="csl-entry">
+Chib, Siddhartha, and Rainer Winkelmann. 2001. “<span class="nocase">Markov chain Monte Carlo analysis of correlated count data</span>.” <em>Journal of Business &amp; Economic Statistics</em> 19 (4): 428–35.
+</div>
+<div id="ref-conway1962" class="csl-entry">
+Conway, Richard W, and William L Maxwell. 1962. “A Queuing Model with State Dependent Service Rates.” <em>Journal of Industrial Engineering</em> 12 (2): 132–36.
+</div>
+<div id="ref-spiegelhalterbayesian" class="csl-entry">
+Spiegelhalter, David J., Nicola G. Best, Bradley P. Carlin, and Angelika Van Der Linde. 2002. “<span class="nocase">Bayesian Measures of Model Complexity and Fit</span>.” <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 64 (4): 583–639. <a href="https://doi.org/10.1111/1467-9868.00353" class="external-link uri">https://doi.org/10.1111/1467-9868.00353</a>.
+</div>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
