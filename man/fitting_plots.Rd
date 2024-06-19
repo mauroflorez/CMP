@@ -13,19 +13,21 @@ fitting_plots(fit, type = "rootogram", S = 100)
 
 \item{S}{Optional. Indicates the number of posterior samples used (Default 100)}
 }
+\value{
+No return value, called for plotting only
+}
 \description{
 Rootograms plots - Multivariate CMP
 }
 \examples{
-\dontrun{
+\donttest{
   n = 50; J = 2
   X = list(matrix(rnorm(3*n), ncol = 3), matrix(rnorm(3*n), ncol = 3))
   beta <- list(c(1,0.1, 1), c(0, 0.5, -0.5))
   mu <- exp(prod_list(X, beta))
   y = matrix(rpois(n = length(mu), lambda = mu), nrow = n)
-  fit <- mcmc_cmp(y, X, S = 10000, nburn = 1000, scale_cov_b = 0.8,
+  fit <- mcmc_cmp(y, X, S = 1000, nburn = 1000, scale_cov_b = 0.8,
   scale_cov_beta = 0.04, scale_cov_gamma = 0.06)
-
-  fitting_plot(fit)
+  fitting_plots(fit)
 }
 }

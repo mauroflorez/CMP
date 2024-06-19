@@ -16,7 +16,7 @@ com_sampler(mu, nu, n = 1, ndraws = FALSE)
 \item{ndraws}{Optional: Return the number of draws required to generate the n samples.}
 }
 \value{
-A list or numeric if ndraws = FALSE:
+A list or numeric in case ndraws = FALSE:
 \item{sample}{Values sampled from the distribution}
 \item{drawsa}{Number of draws required in the rejection sampler}
 \item{log_Bf}{Log of the boundary of the rejection sampler}

@@ -5,7 +5,7 @@
 #' @param fit An object from the mcmc_cmp_mh
 #' @param S Number of iterations used to calculate the DIC
 #'
-#' @return Approximated DIC
+#' @return Vector of approximated DIC
 #' @export
 #'
 DIC_cmp <- function(fit, S = 100){

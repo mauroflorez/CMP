@@ -24,7 +24,6 @@
 #' @param scale_cov_gamma Scale parameter for the covariance of the proposals.
 #' @param inc_burn logical: include burned samples in the return
 #' @param re_chain logical: If the posterior samples for the r.e are include. False return just the mean
-#' @param progress output of algorithm: "acc_rates" update each 10 interactions the acceptance ratios, "bar" show a bar of progress
 #' @param way How to calculate the MCMC updates, based on Chib (2001)
 #' @param random_seed Random seed
 #' @param ... Additional parameters of the MCMC algorithm
@@ -48,7 +47,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'   n = 50; J = 2
 #'   X = list(matrix(rnorm(3*n), ncol = 3), matrix(rnorm(3*n), ncol = 3))
 #'   beta <- list(c(1,0.1, 1), c(0, 0.5, -0.5))
@@ -61,7 +60,7 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
                      prior_mean_beta, prior_var_beta, prior_mean_gamma, prior_var_gamma,
                      v_0, R_0, intercept = FALSE, scale_b, scale_beta, scale_gamma,
                      scale_cov_b, scale_cov_beta, scale_cov_gamma,
-                     inc_burn = FALSE, re_chain = TRUE, progress = "acc_rates", way = 2, random_seed,...){
+                     inc_burn = FALSE, re_chain = TRUE, way = 2, random_seed,...){
   ### -------------------------- Check Values ---------------------------- ###
 
   #Set seed
@@ -254,9 +253,11 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
 
   post_D[,1] = c(D_current)
 
-
   ##############################################################################
   ############################### MCMC - Model #################################
+  pb <- progress::progress_bar$new(format = "Completing [:bar] :percent || ETA: :eta]",
+                                   total = S+nburn,
+                                   clear = FALSE)
 
   for(s in 2:(S+nburn)){
 
@@ -362,24 +363,8 @@ mcmc_cmp <- function(y, X, S = 10000, nburn = 5000, initial_beta, initial_gamma,
 
     ### ------------------------- Output ---------------------------- ###
 
-    if(progress == "bar"){
-      if(s == 2){
-        pb <- progress::progress_bar$new(format = "Completing [:bar] :percent || ETA: :eta]",
-                               total = S+nburn,    # Current bar character
-                               clear = FALSE,    # If TRUE, clears the bar when finish
-                               width = 80)
-      } else {
-        pb$tick()
-        Sys.sleep(1 / 100)
-      }
-    } else if(progress == "acc_rates" && s%%100 == 0){
-      cat("Progress: ", round(s/(nburn+S)*100,2), "% ---- Iteration: ", s,"/", nburn+S, "\n")
-      cat("Beta Acceptance Ratio: ", accept_beta/s, "\n")
-      cat("Gamma Acceptance Ratio: ", accept_gamma/s, "\n")
-      cat("R.E Acceptance Ratio: ", mean(accept_b)/s, "\n")
-      cat("#----------------------------------------------# \n")
-    }
-
+    pb$tick()
+    Sys.sleep(1 / 100)
   }
 
   #Return

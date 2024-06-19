@@ -12,7 +12,7 @@ DIC_cmp(fit, S = 100)
 \item{S}{Number of iterations used to calculate the DIC}
 }
 \value{
-Approximated DIC
+Vector of approximated DIC
 }
 \description{
 This function used an approach similar to the presented by Benson & Friel (2021) to calculate the BIC. We select S a sample size of the posterior samples to speed up computation

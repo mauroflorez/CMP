@@ -6,6 +6,10 @@
 \alias{MultRegCMP-package}
 \title{MultRegCMP: Bayesian Multivariate Conway-Maxwell-Poisson Regression Model for Correlated Count Data}
 \description{
-Fits a Bayesian Regression Model for multivariate count data. This model assumes that the data is distributed according to the Conway-Maxwell-Poisson distribution (Conway and Maxwell 1962), and for each response variable it is associate different covariates. This model allows to account for correlations between the counts by using latent effects based on the Chib and Winkelmann (2001) proposal.
+Fits a Bayesian Regression Model for multivariate count data. This model assumes that the data is distributed according to the Conway-Maxwell-Poisson distribution, and for each response variable it is associate different covariates. This model allows to account for correlations between the counts by using latent effects based on the Chib and Winkelmann (2001) \url{http://www.jstor.org/stable/1392277} proposal.
+}
+\author{
+\strong{Maintainer}: Mauro Florez \email{mf53@rice.edu}
+
 }
 \keyword{internal}

@@ -14,7 +14,7 @@ log_cmp(y, mu, nu)
 \item{nu}{Shape parameter}
 }
 \value{
-the log of the normalized component
+Numeric corresponding to the log of the unnormalized component of the distribution
 }
 \description{
 Log density of the normalized component of the Conway-Maxwell-Poisson
