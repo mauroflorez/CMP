@@ -27,7 +27,6 @@ mcmc_cmp(
   scale_cov_gamma,
   inc_burn = FALSE,
   re_chain = TRUE,
-  progress = "acc_rates",
   way = 2,
   random_seed,
   ...
@@ -78,8 +77,6 @@ mcmc_cmp(
 
 \item{re_chain}{logical: If the posterior samples for the r.e are include. False return just the mean}
 
-\item{progress}{output of algorithm: "acc_rates" update each 10 interactions the acceptance ratios, "bar" show a bar of progress}
-
 \item{way}{How to calculate the MCMC updates, based on Chib (2001)}
 
 \item{random_seed}{Random seed}
@@ -108,7 +105,7 @@ A list:
 MCMC Algorithm to estimate the parameters in the regression model for multivariate correlated count data
 }
 \examples{
-\dontrun{
+\donttest{
   n = 50; J = 2
   X = list(matrix(rnorm(3*n), ncol = 3), matrix(rnorm(3*n), ncol = 3))
   beta <- list(c(1,0.1, 1), c(0, 0.5, -0.5))
